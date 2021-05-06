@@ -48,6 +48,7 @@ defmodule Beef.Schemas.User do
           numFollowers: integer(),
           hasLoggedIn: boolean(),
           online: boolean(),
+          superAdmin: boolean(),
           lastOnline: DateTime.t(),
           youAreFollowing: nil | boolean(),
           followsYou: nil | boolean(),
@@ -58,7 +59,7 @@ defmodule Beef.Schemas.User do
         }
 
   @derive {Poison.Encoder,
-           only: ~w(id whisperPrivacySetting username avatarUrl bannerUrl bio online
+           only: ~w(id whisperPrivacySetting username avatarUrl bannerUrl bio online superAdmin
              lastOnline currentRoomId displayName numFollowing numFollowers
              currentRoom youAreFollowing followsYou botOwnerId roomPermissions iBlockedThem)a}
 
@@ -81,6 +82,7 @@ defmodule Beef.Schemas.User do
     field(:numFollowers, :integer)
     field(:hasLoggedIn, :boolean)
     field(:online, :boolean)
+    field(:superAdmin, :boolean, default: false)
     field(:lastOnline, :utc_datetime_usec)
     field(:youAreFollowing, :boolean, virtual: true)
     field(:followsYou, :boolean, virtual: true)
@@ -147,7 +149,7 @@ defmodule Beef.Schemas.User do
   end
 
   defimpl Jason.Encoder do
-    @fields ~w(id whisperPrivacySetting username avatarUrl bannerUrl bio online
+    @fields ~w(id whisperPrivacySetting username avatarUrl bannerUrl bio online superAdmin
   lastOnline currentRoomId currentRoom displayName numFollowing numFollowers
   youAreFollowing followsYou botOwnerId roomPermissions iBlockedThem)a
 

@@ -9,6 +9,8 @@ defmodule Broth.Message.Manifest do
     "test:operator" => BrothTest.MessageTest.TestOperator,
     "user:create_bot" => User.CreateBot,
     "user:ban" => User.Ban,
+    "user:set_super_admin" => User.SetSuperAdmin,
+    "user:get_super_admin" => User.GetSuperAdmin,
     "user:block" => User.Block,
     "user:unblock" => User.Unblock,
     "user:follow" => User.Follow,

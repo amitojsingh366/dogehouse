@@ -37,6 +37,7 @@ defmodule Beef.Users do
   defdelegate get_current_room(user_id), to: Beef.Access.Users
   defdelegate get_current_room_id(user_id), to: Beef.Access.Users
   defdelegate get_ip(user_id), to: Beef.Access.Users
+  defdelegate get_super_admin(user_id), to: Beef.Access.Users
   defdelegate bot?(user_id), to: Beef.Access.Users
   defdelegate get_by_api_key(api_key), to: Beef.Access.Users
   defdelegate count_bot_accounts(user_id), to: Beef.Access.Users
@@ -52,6 +53,7 @@ defmodule Beef.Users do
   defdelegate inc_num_following(user_id, n), to: Beef.Mutations.Users
   defdelegate set_reason_for_ban(user_id, reason_for_ban), to: Beef.Mutations.Users
   defdelegate set_online(user_id), to: Beef.Mutations.Users
+  defdelegate set_super_admin(user_id, value), to: Beef.Mutations.Users
   defdelegate set_user_left_current_room(user_id), to: Beef.Mutations.Users
   defdelegate set_offline(user_id), to: Beef.Mutations.Users
 

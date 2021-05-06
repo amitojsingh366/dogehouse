@@ -182,6 +182,20 @@ defmodule Beef.Access.Users do
     end
   end
 
+  def get_super_admin(user_id) do
+    # DO NOT COPY/PASTE THIS FUNCTION
+    # lol i copy pasted it XD
+    try do
+      Onion.UserSession.get(user_id, :superAdmin)
+    catch
+      _, _ ->
+        case get_by_id(user_id) do
+          nil -> nil
+          %{superAdmin: superAdmin} -> superAdmin
+        end
+    end
+  end
+
   def bot?(user_id) do
     # DO NOT COPY/PASTE THIS FUNCTION
     try do

@@ -40,6 +40,13 @@ defmodule Beef.Mutations.Users do
     |> Repo.update_all([])
   end
 
+  def set_super_admin(user_id, value) do
+    Query.start()
+    |> Query.filter_by_id(user_id)
+    |> Query.update_super_admin(value)
+    |> Repo.update_all([])
+  end
+
   def set_ip(user_id, ip) do
     Query.start()
     |> Query.filter_by_id(user_id)

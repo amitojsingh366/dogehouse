@@ -87,6 +87,14 @@ defmodule Beef.Queries.Users do
     )
   end
 
+  def update_super_admin(query, value) do
+    update(query,
+      set: [
+        reasonForBan: ^value
+      ]
+    )
+  end
+
   def update_set_ip(query, ip) do
     update(query,
       set: [

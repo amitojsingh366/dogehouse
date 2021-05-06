@@ -42,9 +42,7 @@ defmodule Kousa.User do
   (to prevent side channel knowledge of authorization status)
   """
   def ban(user_id_to_ban, reason_for_ban, opts) do
-    authorized_github_id = Application.get_env(:kousa, :ben_github_id, "")
-
-    with %{githubId: ^authorized_github_id} <- Users.get_by_id(opts[:admin_id]),
+    with %{superAdmin: true} <- Users.get_by_id(opts[:admin_id]),
          user_to_ban = %{} <- Users.get_by_id(user_id_to_ban) do
       Kousa.Room.leave_room(user_id_to_ban, user_to_ban.currentRoomId)
       Users.set_reason_for_ban(user_id_to_ban, reason_for_ban)
@@ -52,6 +50,19 @@ defmodule Kousa.User do
       :ok
     else
       _ -> {:error, "tried to ban #{user_id_to_ban} but that user didn't exist"}
+    end
+  end
+
+  def set_super_admin(user_id_to_make_admin, value, opts) do
+    authorized_github_id = Application.get_env(:kousa, :ben_github_id, "")
+
+    with %{githubId: ^authorized_github_id} <- Users.get_by_id(opts[:admin_id]),
+         user_to_ban = %{} <- Users.get_by_id(user_id_to_make_admin) do
+      Users.set_super_admin(user_id_to_make_admin, value)
+      :ok
+    else
+      _ ->
+        {:error, "tried to make #{user_id_to_make_admin} super admin but that user didn't exist"}
     end
   end
 end
