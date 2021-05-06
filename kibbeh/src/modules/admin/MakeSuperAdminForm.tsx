@@ -10,27 +10,23 @@ import { MiddlePanel } from "../layouts/GridPanels";
 
 interface SearchUsersProps {}
 
-export const BanUsersForm: React.FC<SearchUsersProps> = ({}) => {
+export const MakeSuperAdminForm: React.FC<SearchUsersProps> = ({}) => {
   const conn = useConn();
   const [username, setUsername] = useState("");
-  const [reason, setReason] = useState("");
-  const [isSuperAdmin, setIsSuperAdmin] = useState(false);
+  const [shouldMakeAdmin, setShouldMakeAdmin] = useState(false);
   const { t } = useTypeSafeTranslation();
   const { replace } = useRouter();
   const wrapper = wrap(conn);
 
   useEffect(() => {
-    wrapper.query.getSuperAdmin(conn.user.id).then((response) => {
-      setIsSuperAdmin(response.isSuperAdmin);
-      if (!response.isSuperAdmin) {
-        showErrorToast("nice try");
-        replace("/dash");
-      }
-    });
+    if (conn.user.username !== "benawad") {
+      showErrorToast("nice try");
+      replace("/dash");
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (isSuperAdmin) {
+  if (conn.user.username !== "benawad") {
     return <MiddlePanel />;
   }
 
@@ -40,26 +36,26 @@ export const BanUsersForm: React.FC<SearchUsersProps> = ({}) => {
         <Input
           className={`mb-4`}
           autoFocus
-          placeholder="username to ban..."
+          placeholder="username to make super admin..."
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
       </div>
       <Input
         className={`mb-8`}
+        checked={shouldMakeAdmin}
         autoFocus
-        placeholder="reason"
-        value={reason}
-        onChange={(e) => setReason(e.target.value)}
+        type="checkbox"
+        onChange={(e) => setShouldMakeAdmin(e.target.checked)}
       />
       <Button
         onClick={() => {
-          if (username && reason) {
-            wrapper.mutation.ban(username, reason);
+          if (username) {
+            wrapper.mutation.userSetSuperAdmin(username, shouldMakeAdmin);
           }
         }}
       >
-        {t("pages.banUser.ban")}
+        Change Super Admin Status
       </Button>
     </MiddlePanel>
   );
