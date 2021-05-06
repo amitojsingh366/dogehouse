@@ -56,8 +56,7 @@ defmodule Kousa.User do
   def set_super_admin(user_id_to_make_admin, value, opts) do
     authorized_github_id = Application.get_env(:kousa, :ben_github_id, "")
 
-    with %{githubId: ^authorized_github_id} <- Users.get_by_id(opts[:admin_id]),
-         user_to_ban = %{} <- Users.get_by_id(user_id_to_make_admin) do
+    with %{githubId: ^authorized_github_id} <- Users.get_by_id(opts[:admin_id]) do
       Users.set_super_admin(user_id_to_make_admin, value)
       :ok
     else

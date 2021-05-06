@@ -90,7 +90,7 @@ defmodule Beef.Queries.Users do
   def update_super_admin(query, value) do
     update(query,
       set: [
-        reasonForBan: ^value
+        superAdmin: ^value
       ]
     )
   end

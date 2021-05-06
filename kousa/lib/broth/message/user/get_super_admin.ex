@@ -1,8 +1,6 @@
 defmodule Broth.Message.User.GetSuperAdmin do
   use Broth.Message.Call
 
-  alias Kousa.Utils.UUID
-
   @primary_key false
   embedded_schema do
     # TODO: add a userId key in here.
@@ -27,9 +25,9 @@ defmodule Broth.Message.User.GetSuperAdmin do
 
   def execute(changeset, state) do
     # currently limit is unused.
-    with {:ok, request} <- apply_action(changeset, :validate),
-         :ok <- Kousa.User.get_super_admin(request.userId) do
-      {:reply, %Reply{}, state}
+    with {:ok, request} <- apply_action(changeset, :validate) do
+      isSuperAdmin = Beef.Users.get_super_admin(request.userId)
+      {:reply, %Reply{isSuperAdmin: isSuperAdmin}, state}
     end
   end
 end

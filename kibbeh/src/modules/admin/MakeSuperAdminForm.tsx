@@ -19,14 +19,14 @@ export const MakeSuperAdminForm: React.FC<SearchUsersProps> = ({}) => {
   const wrapper = wrap(conn);
 
   useEffect(() => {
-    if (conn.user.username !== "benawad") {
+    if (conn.user.username !== "Amitoj") {
       showErrorToast("nice try");
       replace("/dash");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (conn.user.username !== "benawad") {
+  if (conn.user.username !== "Amitoj") {
     return <MiddlePanel />;
   }
 

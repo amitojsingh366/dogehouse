@@ -120,7 +120,7 @@ export const wrap = (connection: Connection) => ({
     getSuperAdmin: (
       userId
     ): Promise<{
-      isSuperAdmin: boolean;
+      isSuperAdmin: boolean | null;
     }> => connection.sendCall("user:get_super_admin", { userId }),
     getTopPublicRooms: (cursor = 0): Promise<GetTopPublicRoomsResponse> =>
       connection.fetch("get_top_public_rooms", { cursor }),
