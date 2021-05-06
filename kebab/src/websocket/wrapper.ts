@@ -117,6 +117,11 @@ export const wrap = (connection: Connection) => ({
       users: UserWithFollowInfo[];
       nextCursor: number | null;
     }> => connection.fetch("get_my_following", { cursor }),
+    getSuperAdmin: (
+      userId
+    ): Promise<{
+      isSuperAdmin: boolean;
+    }> => connection.sendCall("user:get_super_admin", { userId }),
     getTopPublicRooms: (cursor = 0): Promise<GetTopPublicRoomsResponse> =>
       connection.fetch("get_top_public_rooms", { cursor }),
     getUserProfile: (
@@ -164,6 +169,8 @@ export const wrap = (connection: Connection) => ({
       connection.sendCall(`user:create_bot`, { username }),
     ban: (username: string, reason: string) =>
       connection.send(`ban`, { username, reason }),
+    userSetSuperAdmin: (username: string, value: boolean) =>
+      connection.sendCall(`user:set_super_admin`, { username, value }),
     deleteScheduledRoom: (id: string): Promise =>
       connection.fetch(`delete_scheduled_room`, { id }),
     createRoomFromScheduledRoom: (data: {
