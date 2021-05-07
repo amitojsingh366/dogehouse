@@ -41,13 +41,16 @@ export const MakeSuperAdminForm: React.FC<SearchUsersProps> = ({}) => {
           onChange={(e) => setUsername(e.target.value)}
         />
       </div>
-      <Input
-        className={`mb-8`}
-        checked={shouldMakeAdmin}
-        autoFocus
-        type="checkbox"
-        onChange={(e) => setShouldMakeAdmin(e.target.checked)}
-      />
+      <label className={`flex items-center my-1`}>
+        <span className={`ml-2 text-primary-100`}>Super Admin:</span>
+        <Input
+          checked={shouldMakeAdmin}
+          autoFocus
+          type="checkbox"
+          onChange={(e) => setShouldMakeAdmin(e.target.checked)}
+        />
+      </label>
+
       <Button
         onClick={() => {
           if (username) {

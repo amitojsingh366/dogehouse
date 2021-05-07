@@ -30,7 +30,7 @@ export const BanUsersForm: React.FC<SearchUsersProps> = ({}) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (isSuperAdmin) {
+  if (!isSuperAdmin) {
     return <MiddlePanel />;
   }
 
