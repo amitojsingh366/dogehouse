@@ -51,6 +51,7 @@ export const MakeSuperAdminForm: React.FC<SearchUsersProps> = ({}) => {
       <Button
         onClick={() => {
           if (username) {
+            console.log(username);
             wrapper.mutation.userSetSuperAdmin(username, shouldMakeAdmin);
           }
         }}

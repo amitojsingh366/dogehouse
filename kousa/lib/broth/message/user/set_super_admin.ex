@@ -3,14 +3,14 @@ defmodule Broth.Message.User.SetSuperAdmin do
 
   @primary_key false
   embedded_schema do
-    field(:userId, :binary)
+    field(:username, :string)
     field(:value, :boolean)
   end
 
   def changeset(initializer \\ %__MODULE__{}, data) do
     initializer
-    |> cast(data, [:userId, :value])
-    |> validate_required([:userId, :value])
+    |> cast(data, [:username, :value])
+    |> validate_required([:username, :value])
   end
 
   defmodule Reply do
@@ -25,7 +25,8 @@ defmodule Broth.Message.User.SetSuperAdmin do
 
   def execute(changeset, state) do
     with {:ok, request} <- apply_action(changeset, :validate),
-         :ok <- Kousa.User.set_super_admin(request.userId, request.value, admin_id: state.user.id) do
+         :ok <-
+           Kousa.User.set_super_admin(request.username, request.value, admin_id: state.user.id) do
       {:reply, %Reply{}, state}
     end
   end

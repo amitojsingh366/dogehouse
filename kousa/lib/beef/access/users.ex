@@ -191,7 +191,7 @@ defmodule Beef.Access.Users do
       _, _ ->
         case get_by_id(user_id) do
           nil -> nil
-          %{superAdmin: superAdmin} -> superAdmin
+          %{superAdmin: isSuperAdmin} -> isSuperAdmin
         end
     end
   end

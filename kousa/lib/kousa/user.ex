@@ -53,15 +53,16 @@ defmodule Kousa.User do
     end
   end
 
-  def set_super_admin(user_id_to_make_admin, value, opts) do
+  def set_super_admin(username_to_make_admin, value, opts) do
     authorized_github_id = Application.get_env(:kousa, :ben_github_id, "")
 
     with %{githubId: ^authorized_github_id} <- Users.get_by_id(opts[:admin_id]) do
-      Users.set_super_admin(user_id_to_make_admin, value)
+      user_to_make_admin = Users.get_by_username(username_to_make_admin)
+      Users.set_super_admin(user_to_make_admin.id, value)
       :ok
     else
       _ ->
-        {:error, "tried to make #{user_id_to_make_admin} super admin but that user didn't exist"}
+        {:error, "tried to make #{username_to_make_admin} super admin but that user didn't exist"}
     end
   end
 end

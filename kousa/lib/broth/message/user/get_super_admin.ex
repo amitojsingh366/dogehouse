@@ -27,6 +27,8 @@ defmodule Broth.Message.User.GetSuperAdmin do
     # currently limit is unused.
     with {:ok, request} <- apply_action(changeset, :validate) do
       isSuperAdmin = Beef.Users.get_super_admin(request.userId)
+      IO.puts(isSuperAdmin)
+
       {:reply, %Reply{isSuperAdmin: isSuperAdmin}, state}
     end
   end
