@@ -2,7 +2,6 @@ name: Bug Report
 description: Create a report to help us improve
 labels: 'bug'
 body:
-
 - type: markdown
   attributes:
   value: Thanks for taking the time to file a bug report! Please fill out this form as completely as possible.
